@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Result Page</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .box {
+      background: white;
+      padding: 40px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1 id="message"></h1>
+    <p id="emailInfo"></p>
+  </div>
+
+  <script>
+    const action = localStorage.getItem("user_action");
+    const name = localStorage.getItem("user_name") || "Guest";
+    const email = localStorage.getItem("user_email") || "Not Provided";
+
+    const messageEl = document.getElementById("message");
+    const emailEl = document.getElementById("emailInfo");
+
+    if (action === "signup") {
+      messageEl.textContent = `Welcome, ${name}! You have successfully signed up.`;
+    } else if (action === "signin") {
+      messageEl.textContent = `Welcome back, ${name || "User"}! You have signed in.`;
+    } else {
+      messageEl.textContent = "Hello! Action not recognized.";
+    }
+
+    emailEl.textContent = `Your email: ${email}`;
+  </script>
+</body>
+</html>
