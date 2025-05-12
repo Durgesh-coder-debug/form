@@ -184,66 +184,48 @@
     let namefield = document.querySelector(".namefield");
     let title = document.querySelector(".title");
     
-    // Track current mode
-    let currentMode = "signup"; // default
     
-    // Switch to Sign In mode
+    let currentMode = "signup"; 
     signin.addEventListener('click', () => {
-        namefield.style.maxHeight = '0'; // Hide name field for sign-in
-        title.innerHTML = "Sign In"; // Change title to "Sign In"
-        signin.classList.add("disable"); // Disable the sign-in button (optional, if you need it)
-        signup.classList.remove("disable"); // Enable the sign-up button (optional, if you need it)
-        underline.style.transform = 'translateX(35px)'; // Move the underline for sign-in mode
-        currentMode = "signin"; // Set mode to sign-in
-    
-        // Show only email and password fields, hide the name field
+        namefield.style.maxHeight = '0'; 
+        title.innerHTML = "Sign In"; 
+        signin.classList.add("disable"); 
+        signup.classList.remove("disable"); 
+        underline.style.transform = 'translateX(35px)'; 
+        currentMode = "signin"; 
         document.getElementById("name").style.display = 'none';
         document.getElementById("password").setAttribute('placeholder', 'Enter your password');
     });
-    
-    // Switch to Sign Up mode
     signup.addEventListener('click', () => {
-        namefield.style.maxHeight = '60px'; // Show name field for sign-up
-        title.innerHTML = "Sign Up"; // Change title to "Sign Up"
-        signin.classList.remove("disable"); // Enable the sign-in button
-        signup.classList.add("disable"); // Disable the sign-up button
-        underline.style.transform = 'translateX(0)'; // Move the underline for sign-up mode
-        currentMode = "signup"; // Set mode to sign-up
-    
-        // Show name field, keep email and password visible
+        namefield.style.maxHeight = '60px'; 
+        title.innerHTML = "Sign Up"; 
+        signin.classList.remove("disable"); 
+        signup.classList.add("disable"); 
+        underline.style.transform = 'translateX(0)'; 
+        currentMode = "signup"; 
         document.getElementById("name").style.display = 'block';
         document.getElementById("password").setAttribute('placeholder', 'Password');
     });
-    
-    // Form submission behavior
     document.getElementById("userForm").addEventListener("submit", function(e) {
         e.preventDefault(); // Prevent default form submission
     
         let name = document.getElementById("name").value;
         let email = document.getElementById("email").value;
         let password = document.getElementById("password").value;
-        
-        // Validation checks
         if (currentMode === "signup") {
             if (!name || !email || !password) {
                 alert("Please fill in all fields: Name, Email, and Password.");
                 return;
             }
-    
-            // Basic email validation
             const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
             if (!emailPattern.test(email)) {
                 alert("Please enter a valid email address.");
                 return;
             }
-    
-            // Save values in localStorage
             localStorage.setItem("user_name", name);
             localStorage.setItem("user_email", email);
             localStorage.setItem("user_password", password);
-            localStorage.setItem("user_action", currentMode); // <-- store signup or signin
-    
-            // Redirect to the result page
+            localStorage.setItem("user_action", currentMode); 
             window.location.href = "index2.html";
         }
     
@@ -253,21 +235,17 @@
                 alert("Please fill in all fields: Email and Password.");
                 return;
             }
-    
-            // Basic email validation
             const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA="A-Z]{2,}$/;
             if (!emailPattern.test(email)) {
                 alert("Please enter a valid email address.");
                 return;
             }
-    
-            // Assuming you validate against localStorage (you can change this to match a real server-side login)
             let storedEmail = localStorage.getItem("user_email");
             let storedPassword = localStorage.getItem("user_password");
     
             if (email === storedEmail && password === storedPassword) {
                 alert("Sign In Successful!");
-                window.location.href = "index2.html"; // Redirect after successful sign-in
+                window.location.href = "index2.html"; 
             } else {
                 alert("Invalid email or password. Please try again.");
             }
